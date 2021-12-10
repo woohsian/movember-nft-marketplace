@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ShareIcon from "@mui/icons-material/Share";
 import { timeConverter } from "../../helpers";
 
 const priceIncrease = (
@@ -26,7 +28,7 @@ export const NFTCard = ({ card, canBid }) => {
     }, parseInt(Math.random() * 1000, 10));
 
     return () => clearInterval(intervalId); //
-  }, [priceToShow]);
+  }, [priceToShow, donors, card.base]);
 
   return (
     <CardComp>
@@ -36,14 +38,17 @@ export const NFTCard = ({ card, canBid }) => {
         {canBid && (
           <>
             <div>Posted: {timeConverter(card.postedTime)}</div>
-            <div>Donors: {donors}</div>
+            <h3>Donors: {donors}</h3>
+            <h4>Funds Raised:</h4>
+            <h2>${priceToShow.toLocaleString()}</h2>
+            <ButtonShare startIcon={<ShareIcon />} variant="contained">
+              Share
+            </ButtonShare>
             <br />
-            <div>Funds Raised: ${priceToShow}</div>
             <br />
-            <ButtonShare variant="contained">Share</ButtonShare>
-            <br />
-            <br />
-            <ButtonBid variant="contained">Donate</ButtonBid>
+            <ButtonDonate startIcon={<AttachMoneyIcon />} variant="contained">
+              Donate
+            </ButtonDonate>
           </>
         )}
         {!canBid && (
@@ -77,7 +82,7 @@ const ImgComp = styled.div`
   background-position: center center;
 `;
 
-const ButtonBid = styled(Button)`
+const ButtonDonate = styled(Button)`
   background-color: #333 !important;
   margin: 0 25px !important;
 `;
