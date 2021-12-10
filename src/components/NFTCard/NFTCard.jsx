@@ -83,12 +83,12 @@ const ImgComp = styled.div`
 `;
 
 const ButtonDonate = styled(Button)`
-  background-color: #333 !important;
+  background-color: #00f !important;
   margin: 0 25px !important;
 `;
 
 const ButtonShare = styled(Button)`
-  background-color: #00f !important;
+  background-color: #333 !important;
   margin: 0 25px !important;
 `;
 

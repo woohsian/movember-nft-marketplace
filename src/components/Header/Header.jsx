@@ -54,7 +54,7 @@ const ButtonDonate = styled(Button)`
 const AnchorLink = styled.a`
   padding: 0 25px;
   text-decoration: none;
-
+  color: #333;
   @media only screen and (max-width: 600px) {
     display: none;
   }
