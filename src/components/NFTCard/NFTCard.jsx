@@ -1,8 +1,33 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import { timeConverter } from "../../helpers";
 
+const priceIncrease = (
+  currentPrice,
+  dispatch,
+  donors,
+  setDonors,
+  base = 100
+) => {
+  const newPrice =
+    parseFloat(currentPrice) + parseInt(Math.random() * base, 10);
+  setDonors(donors + parseInt(Math.random() * 3, 10));
+  dispatch(newPrice);
+};
+
 export const NFTCard = ({ card, canBid }) => {
+  const [priceToShow, setPriceToShow] = useState(card.price);
+  const [donors, setDonors] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      priceIncrease(priceToShow, setPriceToShow, donors, setDonors, card.base);
+    }, parseInt(Math.random() * 1000, 10));
+
+    return () => clearInterval(intervalId); //
+  }, [priceToShow]);
+
   return (
     <CardComp>
       <ImgComp style={{ backgroundImage: `url("${card.imageURL}")` }}></ImgComp>
@@ -11,18 +36,20 @@ export const NFTCard = ({ card, canBid }) => {
         {canBid && (
           <>
             <div>Posted: {timeConverter(card.postedTime)}</div>
-            <div>Bids: {card.bid || 0}</div>
+            <div>Donors: {donors}</div>
             <br />
-            <div>Current Bid: ${card.price}</div>
+            <div>Funds Raised: ${priceToShow}</div>
             <br />
             <ButtonShare variant="contained">Share</ButtonShare>
-            <ButtonBid variant="contained">Bid</ButtonBid>
+            <br />
+            <br />
+            <ButtonBid variant="contained">Donate</ButtonBid>
           </>
         )}
         {!canBid && (
           <>
             <Category>{card.category}</Category>
-            <div>Winning Bid: ${card.price}</div>
+            <div>Total Donation: ${card.price}</div>
           </>
         )}
       </Content>

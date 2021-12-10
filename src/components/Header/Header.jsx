@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import Button from "@mui/material/Button";
+import logo from "./logo.svg";
 
 export const Header = () => {
   return (
     <HeaderComp>
       <NavComp>
-        <h1>Mo NFT Marketplace</h1>
+        <LogoContainer>
+          <Logo src={logo} />
+          <h1>Mo NFT Challenge</h1>
+        </LogoContainer>
         <RightNav>
           <AnchorLink href="#">About</AnchorLink>
           <AnchorLink href="#">Support</AnchorLink>
@@ -20,6 +24,16 @@ export const Header = () => {
 const HeaderComp = styled.header`
   width: 100%;
 `;
+
+const Logo = styled.img`
+  width: 100px;
+  padding-right: 25px;
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+`;
+
 const NavComp = styled.nav`
   display: flex;
   align-items: center;
